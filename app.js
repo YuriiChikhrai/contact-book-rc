@@ -1,4 +1,4 @@
-process.env.NODE_ENV = ["local", "dev"].includes(process.env.NODE_ENV)
+process.env.NODE_ENV = ["local", "dev", "prod"].includes(process.env.NODE_ENV)
   ? process.env.NODE_ENV
   : "local";
 
