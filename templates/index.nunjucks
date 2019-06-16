@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>Express</title>
+</head>
+<body>
+<p>Welcome to Express</p>
+
+{% if user.email %}
+    User login as: {{ user.email }}
+    <form id="logout">
+        <input type="submit" value="logout"/>
+    </form>
+{% else %}
+    <form id="login">
+        <input type="email" id="email" />
+        <input type="password" id="password" />
+        <input type="submit" />
+    </form>
+{% endif %}
+
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+</script>
+<script>
+    $("#login").on('submit', (e) => {
+        e.preventDefault();
+        console.log($("#email").val());
+        $.ajax({
+            method: "POST",
+            url: "/api/auth",
+            // contentType: "application/json",
+            data: { username: $("#email").val(), password: $("#password").val() },
+        })
+            .then(function( msg ) {
+                alert( JSON.stringify(msg) );
+            })
+            .catch( (e) => alert(JSON.stringify(e)) );
+    });
+    $("#logout").on('submit', (e) => {
+        e.preventDefault();
+        $.ajax({
+            method: "GET",
+            url: "/api/auth/logout",
+        })
+            .then(function( msg ) {
+                alert( JSON.stringify(msg) );
+            })
+            .catch( (e) => alert(JSON.stringify(e)) );
+    });
+</script>
+</body>
+</html>
